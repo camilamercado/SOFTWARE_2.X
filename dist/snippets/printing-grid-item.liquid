@@ -1,0 +1,65 @@
+{% assign variant_options = collection.products[0] | map: 'options_with_values' %}
+    {% assign options = variant_options | map: 'values' %}
+    {% assign sizes = products[0].options_with_values[0].values %}
+    
+    <div class="table__window">
+        <table class="production__printing">
+          <thead>
+            <tr class="table__description">
+                <th scope="col" colspan="2"><div class="logo">software studios, llc</div>{{ collection.title }}</th>
+                <th scope="col" colspan="8">{{ collection.description }}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    
+    {% for product in collection.products %}
+    {% assign productIndex = forloop.index %}
+
+      <div class="table__window">
+        <table class="production__printing">
+          <thead>
+            <tr class="fabric__description">
+                <th scope="col" colspan="2">{{ product.title }}
+                {% comment %} {% assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                <img style="width:30px; height:30px;" class="product-item__image lazyload"
+                  src="{{ product.featured_image | img_url: '300x300' }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+                  data-aspectratio="{{ product.featured_image.aspect_ratio }}"
+                  data-sizes="auto"
+                  alt="{{ product.featured_image.alt | escape }}"> {% endcomment %}
+                </th>
+                <th scope="col" colspan="5">{{ product.description }}</th>
+            </tr>
+            <tr>
+                <th scope="col">Size (in)</th>
+                <th scope="col">Size (cm)</th>
+                <th class="quantity" colspan="5">Quantity </th>
+                <th scope="col">Sample Cost</th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <th>&lt;50</th><th>51-300</th><th>300-500</th><th>500-1000</th><th>&gt;1000</th>
+                <td>&nbsp;</td>
+            </tr>
+          <thead>
+          <tbody>
+            {% for size in sizes %}
+            {% assign sizeIndex = forloop.index | minus: 1 %}
+              <tr>
+                <td>{{ product.variants[sizeIndex].title | replace: '"', 'in' | replace: "x", " x "}}</td>
+                <td>{{ product.variants[sizeIndex].sku }}</td>
+                <td>{{ product.variants[sizeIndex].price | money  }}</td>
+                <td>{{ product.variants[sizeIndex].price | divided_by: 1.26954178 | money  }}</td>
+                <td>{{ product.variants[sizeIndex].price | divided_by: 1.30038653 | money  }}</td>
+                <td>{{ product.variants[sizeIndex].price | divided_by: 1.33201357 | money  }}</td>
+                <td>{{ product.variants[sizeIndex].price | divided_by: 1.37719298 | money  }}</td>
+                <td>{{ product.variants[sizeIndex].compare_at_price | money  }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}

@@ -1,0 +1,32 @@
+html {
+	background-color: white;
+}
+
+.site-header-wrapper {
+	position: fixed;
+  	z-index: 10;
+  	font-family: "Chalet Book"!important;
+  
+  	.site-header__logo .site-header__logo-link {
+  		font-family: "Chalet Book"!important;
+      	font-style: italic;
+    }
+  
+}
+
+.main-content {
+    position: relative;
+  	margin-top: $headerHeight;
+}
+
+.template-collection .main-content {
+    margin-top: 140px;
+}
+
+footer {
+	display: none;
+}
+
+iframe#admin-bar-iframe {
+	display: none!important;
+}

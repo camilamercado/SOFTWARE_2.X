@@ -1,0 +1,1553 @@
+/***************************************************/
+/******************** VARIABLES ********************/
+/***************************************************/
+$headerHeight: 50px;
+$mobileHeader: 20px;
+$buttonSize: 30px;
+$actionHeight: 28px;
+
+/***************************************************/
+/********************* MIXINS **********************/
+/***************************************************/
+@mixin button($state: null) {
+  	border: 1px solid black;
+  	border-radius: 0px;
+  	@if $state == "hover" {
+    	background: black;
+  	 	color: white;
+    } @elseif $state == "soldout" {
+  	 	border: 1px solid lightgrey!important;
+  	 	color: lightgrey!important;
+      	background: white;
+ 	}@else {
+   	 	background: white;
+  	 	color: black;
+ }
+}
+
+@mixin chaletBook($weight: null, $style: null) {
+  @if $weight == "bold" {
+     font-family: "Chalet Book Bold"!important;
+     font-weight: 500;
+     @if $style == "italic" {font-style: italic;}
+ } @else {
+   font-family: "Chalet Book"!important;
+   font-weight: normal;
+   @if $style == "italic" {font-style: italic;}
+ }
+}
+
+@mixin logo {
+		font-family: "San Marco"!important;
+		letter-spacing: 5px;
+		font-size: 1.125em !important;
+		font-weight: normal;
+		font-style: normal;
+		text-rendering: unset;
+		text-transform: lowercase;
+}
+
+/***************************************************/
+/********************* HEADER **********************/
+/***************************************************/
+
+html {
+	background-color: white;
+}
+
+.template-index .site-header-container {
+    display: block!important;
+}
+
+.site-header-wrapper {
+	position: fixed;
+  	z-index: 10;
+  	padding: 0 2% 0% 2%;
+  	background: white;
+  
+  	.site-header__inner {
+  		height: $headerHeight;
+      	padding: 0px;
+      	
+      .grid__item {
+      		float: left!important;
+        	* { padding: 0px; 
+            	height: $headerHeight;
+    			line-height: $headerHeight;
+              	font-size: 1.2em;
+            }
+        	h1.site-header__logo {
+        		text-align: center;
+        		a {
+    				font-family: "San Marco";
+    				letter-spacing: 5px;
+    				font-size: 1.125em!important;
+    				font-weight: normal;
+    				font-style: normal;
+    				text-rendering: unset;
+                  &:hover {
+                  	color: black;
+                    opacity: 1;
+                  }
+                }
+            }
+      	}
+      
+      .icon-hamburger{
+          width: 18px;
+    	  height: 14px;
+          margin-top: 20px;
+        &:before { 
+          content: '';
+        }
+        .menu--icon {
+        	width: 100%;
+          	height: 100%;
+    		border-top: 1px solid black;
+          	border-bottom: 1px solid black;
+          .menu--line {
+          	width: 100%;
+          	height: 40%;
+            margin-top: 33%;
+    		border-top: 1px solid black;
+          }
+        }
+      }
+            
+      .cart-link.cart-bubble--visible:before {
+    	  content: '';
+    	  position: absolute;
+    	  top: 20px;
+    	  right: -5px;
+    	  width: 8px;
+    	  height: 8px;
+    	  background-color: green;
+    	  border-radius: 50%;
+	  }
+      
+      .icon-cart {
+        width: 18px;
+        height: 20px;
+		margin-top: 18px;
+        &:before { 
+          content: '';
+        }
+        .checkout--bag {
+        	width: 100%;
+    		border: 1px solid black;
+    		height: 90%;
+          .checkout--handle {
+          	width: 45%;
+    		height: 30%;
+    		border: 1px solid black;
+    		border-radius: 2px;
+    		border-bottom-left-radius: 0px;
+    		border-bottom-right-radius: 0px;
+    		border-bottom: none;
+    		margin: auto;
+    		margin-top: -20%;
+          }
+        }
+      }
+      	
+  	}
+}
+
+.template-index,
+.template-collection {
+  .site-header__link.js-drawer-open-left { opacity: 1;}
+
+}
+
+@media only screen and (max-width: 750px) {
+.site-header-wrapper {
+    padding: 0 3% 0% 3%;
+  .site-header__inner {
+    height: $mobileHeader;
+    padding: 0px!important;
+    .grid__item {
+        * { 
+/*             height: 40px; */
+    		line-height: 40px;
+           }
+      button { height: 40px;}
+    }
+    * {
+      height: 40px;
+      line-height: 40px;
+      font-size: 1em!important;
+    }
+  	.site-header__logo {
+      img { 
+         width: 250px!important;
+   		 padding-top: 6px !important;
+    	 height: 32px!important;
+         padding-bottom: 0!important;
+      }
+  	}
+    
+    .icon-hamburger{margin-top: 14px;}
+    .icon-cart{margin-top: 12px;}
+  }
+}
+  .main-content {
+    margin-top: $mobileHeader + 20!important;
+  }
+  
+  .template-index,
+	.template-collection {
+  	.site-header__link.js-drawer-open-left { opacity: 1;}
+
+	}
+  
+}
+
+.main-content {
+    position: relative;
+  	margin-top: $headerHeight;
+}
+
+.template-collection .main-content {
+  margin-top: calc(#{$headerHeight} + 15px);
+}
+
+@media only screen and (max-width: 750px) {
+  #shopify-section-action-bar { display: none;}
+}
+
+footer,
+iframe#admin-bar-iframe {display: none;}
+
+footer.cart__footer {display: block;}
+
+button, input, a {
+  &:focus {
+  	outline: none; 
+  }
+  &:hover {
+  	outline: none; 
+  }
+}
+
+/***************************************************/
+/****************** ACTION BAR *********************/
+/***************************************************/
+#shopify-section-action-bar {
+  background-color: white;
+  .action-bar {
+    height: $actionHeight + 1;
+    margin-top: -5px;
+    background-color: white;
+  	.action-bar__menu--main {
+     	background-color: white;
+        height: $actionHeight;
+      .action-bar__menu-item {height: $actionHeight;}
+  		.action-bar__link {
+  			@include chaletBook;
+   			font-weight: normal;
+   			text-transform: uppercase;
+    		color: black;
+   			background: white;
+          	font-size: 0.8em;
+          	height: $actionHeight;
+    		line-height: 30px;
+          &:hover {font-style: italic;}
+  		}
+      .action-bar--active:after {
+    	content: '';
+    	display: block;
+    	position: absolute;
+    	height: 2px;
+    	left: 10px;
+    	right: 10px;
+    	background: black;
+	}
+  	}
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #shopify-section-action-bar { display: none;}
+}
+
+
+/***************************************************/
+/******************* NAV DRAWER ********************/
+/***************************************************/
+
+#NavDrawer {
+    background-color: white;
+  	border-right: 1px solid black;
+	.drawer-nav__item a, .drawer-nav__toggle button {
+    	color: black;
+    	font-family: "Chalet Book";
+    	font-size: 1.3em !important;
+    	padding-right: 30px;
+    	padding-bottom: 0px;
+    	text-align: right;
+      	text-transform: uppercase;
+    	font-weight: normal;
+        &:hover, 
+    	&:focus {
+    		opacity: 1;
+    		font-style: italic;
+		}
+     }  
+  	.drawer__close-button {
+    	right: 10px;
+    	top: 0px;
+    	position: absolute;
+    	left: unset;
+    	font-size: 1em;
+    	color: black;
+    	@include chaletBook;
+        .icon-x {
+            width: 15px;
+            height: 15px;
+        	background-image: url("https://cdn.shopify.com/s/files/1/2866/1500/t/7/assets/icon-x.png?384733065601904089");
+            background-size: 15px auto;
+            &:before { 
+              content: '';
+            }
+        }
+	}
+  
+}
+
+/***************************************************/
+/****************** CART DRAWER ********************/
+/***************************************************/
+
+#CartDrawer {
+  	border-left: 1px solid black;
+  	.drawer__header { 
+      height: 45px;
+      .drawer__close-button {
+        height: 45px;
+        width: 20px;
+    	top: 5px;
+        padding: 0px;
+    	position: absolute;
+    	left: 15px;
+    	font-size: 1em;
+    	color: black;
+    	@include chaletBook;
+        .icon-x {
+            width: 15px;
+            height: 15px;
+        	background-image: url("https://cdn.shopify.com/s/files/1/2866/1500/t/7/assets/icon-x.png?384733065601904089");
+            background-size: 15px auto;
+            &:before { 
+              content: '';
+            }
+        }
+      	&:active,&:focus {
+    		background-color: white;
+		}
+      }
+    }
+  	.drawer__inner { 
+      top: 45px;
+		#CartContainer {
+      		* {
+              	@include chaletBook;
+              	color: black;
+            	text-transform: uppercase;
+            }
+/*           	.ajaxcart__inner:after {
+    			background: linear-gradient(to bottom, rgba(26,26,26,0) 0%, #fff 100%);
+    			content: '';
+    			pointer-events: none;
+    			z-index: 8;
+   		 		width: 100%;
+    			height: 50px;
+    			color: #fff;
+    			position: fixed;
+    			bottom: 210px;
+			}	 */
+  			.ajaxcart__footer.ajaxcart__footer--fixed {
+  				height: auto!important;
+              	.ajaxcart__subtotal {
+              		margin-bottom: 10px;
+              	}
+                .ajaxcart__note.txt--minor {
+              		font-size: 74%;
+              	}
+              	button { 
+                  height: $buttonSize + 10;
+                  line-height: $buttonSize + 10;
+                  padding: 0 10px;
+                  @include button;
+                  &:hover {
+                  	@include button(hover);
+                  }
+                }
+    			.additional-checkout-buttons {
+    				display: flex;
+    				width: 100%;
+                    flex-wrap: wrap;
+                    margin-bottom: 10px;
+      				.additional-checkout-button {
+        				min-width: 0px !important;
+    					flex-grow: 1;
+    					flex-basis: 0;
+                        flex: 100% 1 1;
+      				}
+                  .additional-checkout-button+.additional-checkout-button {
+						margin-left: 0px;
+					}
+                  
+                  .additional-checkout-button--paypal {order: 1}
+                  .additional-checkout-button--apple-pay { 
+                    	order: 2;
+                  		display: block;
+                  }
+                  .additional-checkout-button--google-pay { order: 3}
+                  
+    			}
+  			}
+          
+		}
+  	}
+}
+
+
+/***************************************************/
+/****************** CART DRAWER ********************/
+/***************************************************/
+
+#NavDrawer {
+	.drawer__close-button:active, 
+	.drawer__close-button:focus {
+    	background-color: transparent;
+	}
+}
+
+/***************************************************/
+/****************** INDEX PAGE *********************/
+/***************************************************/
+
+#shopify-section-rich-text {
+	display: none;
+}
+
+#shopify-section-featured-collection {
+    padding-top: $actionHeight;
+    padding-right: 30px;
+  	margin-top: 0px;
+  	
+}
+
+
+/* #shopify-section-featured-collection,
+#shopify-section-collection-template {
+  	.product-item__link:hover, 
+  	.product-item__link:focus {
+      .product-item__image {opacity: 1;}
+      opacity: 1;
+    }
+  	.product-item__meta {
+  		transition: none;
+      	&:hover {
+          z-index: 2;
+          .product-item__meta__inner {
+            top: 70%;
+            transform: none!important;
+            -moz-transform: none!important;
+            -webkit-transform: none!important;
+            transition: none!important;
+            -moz-transition: none!important;
+            -webkit-transition: none!important;
+          }
+        }
+      	&:hover:before, 
+  		&:focus:before { opacity: 0;}
+    	.product-item__meta__inner {
+    	  	padding: 25px 35px;
+      		background: white;
+          	top: 100%;
+      		* {
+   				@include chaletBook;
+       			text-align: left;
+        		text-transform: uppercase;
+        		color: black;
+      		}
+     		.product-item__title {
+          		@include chaletBook(bold);
+     		}
+     		.txt--emphasis {
+          		font-style: normal;
+     		}
+     	}  
+  	}	
+}
+
+#shopify-section-featured-collection {
+  .product-item__link:hover {
+    .product__photo.homepage__alt {
+  		z-index:1;
+  	}
+  }
+  .product__photo.homepage__alt {
+  	position: absolute;
+    z-index:-1;
+  }
+} */
+
+.index-section.shopify-section:last-of-type {
+    margin-bottom: 0px!important;
+}
+
+#shopify-section-newsletter-signup {
+  .newsletter {
+  	position: absolute;
+    margin:auto;
+    position: absolute;
+    margin: auto;
+    width: 70%;
+    margin-left: 15%;
+  }
+	width: 100%;
+  	background: black;
+    @include chaletBook;
+  	margin-left: 0px;
+  	padding: 1em;
+    height: 50px;
+
+  	* {
+   		@include chaletBook;
+       	text-align: left;
+        text-transform: uppercase;
+      	height: 20px;
+      	line-height: 20px;
+      	position: relative;
+      	float: left;
+       	color: white;
+        font-size: 1em;
+    }
+  
+  span.newsletter-text,
+  input { margin-right: 1em}
+  input {
+  	color: white!important;
+    background: black;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0px;
+  }
+  button {
+  	border: 1px solid white;
+    padding: 0 10px;
+    border-radius: 0px;
+    &:hover {
+      	@include button;
+      .newsletter__submit-text--large {
+        color: black!important;
+      }
+  	}
+  }
+/*    margin-left:30px;
+	* {
+   		@include chaletBook;
+       	text-align: left;
+        text-transform: uppercase;
+      	height: $buttonSize;
+      	line-height: $buttonSize;
+    }
+  	span.newsletter-text { color: black;}
+  	input { @include button;}
+  	button {
+      	padding: 0 10px;
+      	margin-left:10px;
+  		@include button(hover);
+      	&:hover {
+      		@include button;
+  		}
+        
+  	} */
+}
+
+/* @media only screen and (max-width: 990px) { */
+	#shopify-section-featured-collection,
+  	#shopify-section-collection-template{
+    	padding-right: 15px!important;
+		.product__photo.grid__item{
+    		padding-left: 15px!important;
+		}
+      
+      	.product-item__meta{
+      		position: relative;
+            opacity: 1;
+            padding: 15px;
+      	}
+      	.product-item__meta__inner {
+    		padding: 15px 0px!important;
+            text-align: left;
+            padding-top: 20px;
+            float: left;
+            width: 100%;
+            position: relative;
+            float: unset;
+		}
+	}
+/* } */
+
+@media only screen and (max-width: 750px) {
+	#shopify-section-featured-collection {
+    	padding-top: 0px!important;
+	}
+  
+  	#shopify-section-newsletter-signup {
+    	height: 100px;
+  		.newsletter {
+    		margin-left: 0px;
+    		width: 100%;
+            position: realtive;
+    		span.newsletter-text {
+    			margin-bottom: 5px;
+			}
+  		}
+	}
+}
+
+/***************************************************/
+/***************** PRODUCT INDEX *******************/
+/***************************************************/
+
+#shopify-section-collection-template,
+#shopify-section-featured-collection{
+  .collection-grid {
+  	padding: 0 4vw;
+    padding-left: calc(4vw + 15px);
+    max-width: 1500px;
+    margin: auto;
+    @media only screen and (max-width: 990px) {
+		padding: 0 1vw;
+    	padding-left: calc(1vw + 15px);
+	}
+    .grid__registration {
+    	width: 100%;
+      	height: 100vh;
+      	top: 0px;
+    }
+    .product-item {
+      position:relative;
+	  padding: 1.5em;
+      margin-bottom: 0px!important;
+      @include chaletBook();
+      .product-item__title {
+      	@include chaletBook(bold);
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .product-item__price-wrapper {
+        color: black!important;
+        text-transform: uppercase;
+      }
+      
+      &:hover {
+        .product-item__title {color: blue!important}
+        * {color: blue!important}
+        .product-variant__title * {
+          border: 1px solid blue!important;
+        }
+        .product-variant__title .variant.soldout {
+    		background: linear-gradient(to top left, rgba(0,0,0,0) 0%, rgba(0,0,0,0) calc(50% - 0.8px), blue 50%, rgba(0,0,0,0) calc(50% + 0.8px), rgba(0,0,0,0) 100%)!important;
+		}
+        
+      }
+      .registration__mark {
+    	width: 10px;
+    	height: 10px;
+/*         display: none; */
+    	position: absolute;
+        @media only screen and (max-width: 750px) {
+			display: none;
+		}
+    	
+	}
+      &:nth-child(odd){
+        .registration__mark.midline {
+        	border-right: 0.5px solid black;
+          	top: 0px;
+    		right: 0px;
+        }
+        .registration__mark.sideline {
+        	border-top: 1px solid black;
+          	top: 0px;
+    		left: 0px;
+        }
+        .registration__mark.crosshair {
+    		border-right: 0.5px solid black;
+            border-bottom: 1px solid black;
+          	bottom: 0px;
+    		right: 0px;
+        }
+      } 
+      &:nth-child(even){
+        .registration__mark.crosshair {
+    		border-bottom: 1px solid black;
+          	bottom: 0px;
+    		left: 0px;
+        }
+        .registration__mark.sideline {
+        	border-top: 1px solid black;
+          	top: 0px;
+    		right: 0px;
+        }
+      } 
+      .product-item__link-wrapper {
+         margin: 0px;
+        .product-item__image-container {
+    		padding: 3em 1em;
+          .product-item__image {
+          	opacity: 1!important;
+          }
+          	@media only screen and (max-width: 750px) {
+				padding: 0 0 1em;
+			  }
+		}
+        .product-item__meta {
+          display: block;
+    	  height: 100%;
+    	  width: 100%;
+          background: transparent;
+          .product-item__meta__inner-second{
+          	font-size: 0.85em;
+          }
+          .product-item__meta__inner,
+          .product-item__meta__inner-second{
+            display: flex;
+    	  	justify-content: space-between;
+    	    flex-direction: row;
+            padding: 0px 1em 0.5em!important;
+            background: transparent;
+            color: black;
+            @media only screen and (max-width: 750px) {
+				padding: 0!important;
+			  }
+          		* {
+                  margin: 0px;
+            	  padding: 0px;
+            	  font-size: 0.85em;
+                  display: flex;
+          		}
+
+          	.product-variant__title {
+              @media only screen and (max-width: 920px) {
+				display: none;
+			  }
+              order:2;
+              margin-top: -3px;
+              * {
+                display: block;
+                @include button;
+                min-width: 23px;
+    			padding: 0px 3px;
+                height: 23px;
+                line-height: 23px;
+                margin-left: 5px!important;
+                text-align: center;
+              }
+               .variant.soldout {
+             	background: linear-gradient(to top left,
+           					rgba(0,0,0,0) 0%,
+           					rgba(0,0,0,0) calc(50% - 0.8px),
+           					rgba(0,0,0,1) 50%,
+           					rgba(0,0,0,0) calc(50% + 0.8px),
+           					rgba(0,0,0,0) 100%);
+              	}
+
+          	}
+          	.product-item__price-wrapper {
+              	order: 3;
+    			float: right!important;
+              	text-transform: uppercase!important;
+			}
+        	}
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 750px) {
+  #shopify-section-collection-template {
+    padding-right: 0px!important;
+  	.collection-grid {
+  		padding: 0!important;
+  	}
+  }
+}
+
+/***************************************************/
+/******************** PRODUCTS *********************/
+/***************************************************/
+#shopify-section-product-template {
+  
+  .image__zoom {
+    position: absolute; 
+    top: 0px; 
+    background: white; 
+    height: 100vh; 
+    z-index: 10; 
+    padding-left: 0px;
+    
+    img {
+    	width: 90%;
+        margin-left: 5%;
+      	display: block!important;
+    }
+    .zoom-out {display:none;}
+    &:hover {
+    .zoom-out {
+        display:block;
+  		width: 20px;
+    	height: 20px;
+    	position: absolute;
+    	top: 1em;
+    	right: 1em;
+    	z-index: 2;
+    	@include button;
+        border: 1px solid lightgrey;
+        color: lightgrey;
+        background: #00000058;
+    	font-size: 1em;
+    	text-align: center;
+    	line-height: 14px;
+      	border-radius: 50%;
+  	}
+    }
+    
+    .zoom__buttons {
+        cursor: pointer;
+        opacity: 0;
+  		width: 18px;
+    	height: 40px;
+    	position: fixed;
+      	top: calc(#{$headerHeight} + 1em);
+    	right: calc(5% + 1em);
+      	z-index: 2;
+        text-align: center;
+        line-height: 16px;
+        transition: 0.25s opacity ease;
+      .zoom__in {
+      	@include button(hover);
+        height: 18px;
+        font-size: 0.85em;
+      }
+      .zoom__out {
+      	@include button;
+        height: 18px;
+        font-size: 0.58em;
+    	line-height: 16px;
+      }
+    }
+    &:hover {
+     .zoom__buttons {
+        opacity: 1;
+     }
+    }
+  }
+  
+  .product__photo {
+    .zoom-in {display:none;}
+  	&:hover {
+  	  .zoom-in {
+      	display:block;
+  		width: 20px;
+    	height: 20px;
+    	position: absolute;
+    	bottom: 2em;
+    	right: 1em;
+    	z-index: 2;
+    	@include button;
+        border: 1px solid lightgrey;
+        color: lightgrey;
+      	background: #00000058;
+    	font-size: 1em;
+    	text-align: center;
+    	line-height: 16px;
+      	border-radius: 50%;
+  	  }
+  	}
+    
+    .zoom__buttons {
+        cursor: pointer;
+        opacity: 0;
+  		width: 18px;
+    	height: 40px;
+    	position: absolute;
+    	bottom: 2em;
+    	right: 1em;
+      	z-index: 2;
+        text-align: center;
+        line-height: 16px;
+        transition: 0.25s opacity ease;
+      .zoom__in {
+      	@include button;
+        height: 18px;
+        font-size: 0.85em;
+      }
+      .zoom__out {
+      	@include button(hover);
+        height: 18px;
+        font-size: 0.58em;
+    	line-height: 16px;
+      }
+    }
+    &:hover {
+     .zoom__buttons {
+        opacity: 1;
+     }
+    }
+    
+  }
+  
+   .product__photo.Fullbleed {
+    .zoom-in,
+    .zoom__buttons {display:none;}
+     &:hover {
+       .zoom-in,
+       .zoom__buttons {display:none;}
+     }
+   }
+
+	.product__details {
+		position: fixed!important;
+	    right: 0px!important;
+	    padding: 30px;
+      	margin-top: 0px;
+        line-height: 1.4;
+      	font-size: 0.9em;
+        height: 100vh;
+        overflow: scroll;
+      
+      	* {@include chaletBook;}
+      
+      	.product__details-content {
+      		max-width: 350px;
+            padding-bottom: 50px;
+          	.product-single__description {
+          		max-width: 288px;
+          	}
+      	}
+      	
+      	h2 {
+          	@include chaletBook(bold);
+          	text-transform: Uppercase;
+          	font-size: 1.2em;
+      	}
+      
+      	.product__price {
+  			color: black;
+          	margin-bottom: 10px;
+		}
+      
+      	.selector-wrapper {
+      		@include chaletBook(bold);
+            padding: 6px 0 6px 0;
+          	select {
+      			@include chaletBook(bold);
+              	text-transform: Uppercase;
+                text-align-last: center;
+              	font-size: 12px;
+              	letter-spacing: 1px;
+              	padding-right: 0px;
+    			padding-left: 0px;
+      		}
+          	
+          	label { display: none; }
+      	}
+      
+      	.swatch-std {
+            display: inline-block;
+            margin-bottom: 10px;
+      		span {
+        	display: block;
+          	text-transform: uppercase;
+            color: black!important;
+            margin-bottom: 10px;
+        }
+            .swatch-element {
+              	position: relative;
+              	display: inline;
+              	float: left;
+      			height: $buttonSize;
+          		min-width: $buttonSize;
+      			margin-right: 10px;
+              	@include button;
+          		-webkit-user-select: none;
+  				-moz-user-select: none;
+  				-ms-user-select: none;
+  				user-select: none;
+              
+              	&:hover {
+          			@include button(hover);
+          		}
+          
+          		* {
+                  height: $buttonSize - 1;
+          		  min-width: $buttonSize - 1;
+          		}
+          	
+          		input {
+          			position: absolute;
+                	opacity: 0;
+          		}
+          
+          		input:checked ~ .label__container {
+                  	border: 0px!important;
+          			@include button(hover);
+          		}
+          
+          		label {
+          			text-align: center;
+            		line-height: $buttonSize;
+            		display: inline-block;
+                    padding: 0 5px;
+          		}
+      		}
+          
+          	.swatch-element.soldout {
+             	background: linear-gradient(to top left,
+           					rgba(0,0,0,0) 0%,
+           					rgba(0,0,0,0) calc(50% - 0.8px),
+           					rgba(0,0,0,1) 50%,
+           					rgba(0,0,0,0) calc(50% + 0.8px),
+           					rgba(0,0,0,0) 100%);
+/*        					linear-gradient(to top right,
+           					rgba(0,0,0,0) 0%,
+           					rgba(0,0,0,0) calc(50% - 0.8px),
+           					rgba(0,0,0,1) 50%,
+           					rgba(0,0,0,0) calc(50% + 0.8px),
+           					rgba(0,0,0,0) 100%); */
+/*              @include button(soldout); */
+                &:hover {
+                  	@include button;
+                	background: linear-gradient(to top left,
+           						rgba(0,0,0,0) 0%,
+           						rgba(0,0,0,0) calc(50% - 0.8px),
+           						rgba(0,0,0,1) 50%,
+           						rgba(0,0,0,0) calc(50% + 0.8px),
+           						rgba(0,0,0,0) 100%);
+                }
+            }
+      	}
+      
+      .swatch-std#embroidery {
+        
+        span {
+        	display: block;
+          	text-transform: uppercase;
+            color: black!important;
+            margin-bottom: 10px;
+        }
+      	.swatch-element {
+          	width: auto;
+          	* {
+          		width: auto;
+                padding: 0 7px 0 7px;
+          	}
+        }
+      }
+      
+      .product__quantity.quantity-wrapper {
+      	border: 0px;
+        padding: 0px;
+        label.product__quantity-label {
+          &:after {
+          	content: ':';
+          }
+        }
+        input.quantity-input {
+          	width: $buttonSize + 10; 
+          	flex-grow: unset;
+          	flex-basis: unset;
+        }
+      }
+      
+      #AddToCart-product-template {
+		  @include button;
+          font-weight: normal;
+          font-size: 12px;
+          padding: 6px 1em;
+          min-height: 0px;
+          span {
+          	@include chaletBook(bold);
+            text-transform: Uppercase;
+          }
+          
+          &:hover {
+          	@include button(hover);
+            opacity: 1;
+          }
+      	}
+      
+      .btn--secondary-accent[disabled], 
+      .btn--secondary-accent.disabled {
+        @include button;
+          font-weight: normal;
+          font-size: 12px;
+          padding: 6px 1em;
+          min-height: 0px;
+          opacity: 1;
+          @include chaletBook(bold);
+          text-transform: Uppercase;
+      }
+      
+      .product-single__description {
+          color: black;
+          ul {
+          	list-style: none;
+            margin-left: 0px;
+          }
+          .art_desc {
+             text-align: justify;
+          }
+      }
+      
+      .size-diagram {
+      	position: relative;
+    	width: 70%;
+   	 	height: 0;
+    	padding-bottom: 70%;
+        margin-bottom: 2em;
+        .diagram {	
+          border: 1px solid lightgray;
+          position: absolute;
+          bottom: 0px;
+          z-index: 1;
+          color: lightgray;
+          span {
+          	position: absolute;
+            padding: 10px 10px;
+            right: 0px;
+            font-size:0.9em;
+          }
+        }
+        .hand {
+            	opacity: 1;
+            	&:hover{
+                	opacity:1;
+                }
+            }
+        .diagram.active {
+        	border: 1px solid black;
+            z-index: 2;
+            color: black;
+        } 
+      }
+      
+      .back-button.back__mobile {display: none;}
+      	
+	}
+  
+  	.grid__item.product__photo {
+    	padding: 0 0 3% 3%;
+	}
+  
+  	.btn.back-button__link {
+  		@include button;
+      	@include chaletBook;
+      	text-transform: Uppercase;
+      
+      	&:hover {
+          	@include button(hover);
+          }
+  	}
+  
+}
+
+
+
+@media only screen and (min-width: 750px) {
+  #shopify-section-product-template .grid--uniform .medium-up--one-half:nth-child(2n+1){
+  	clear: initial;
+  }
+
+}
+
+
+@media only screen and (max-width: 750px) {
+  $buttonSize : 31px;
+  #shopify-section-product-template {
+    
+    padding-bottom: 98px;
+    
+    .product__details {
+		bottom: 0px;
+    	z-index: 5;
+    	background: white;
+      	height: 98px;
+        overflow: hidden;
+        padding: 8px 15px;
+        
+      .product__details-content {
+      	max-width: none;
+       	padding-bottom: 0px;
+        
+        .product-single__description {
+          font-size: 1em;
+          margin-top: 1em;
+          max-width: none;
+          .size-diagram {
+        	width: 36%;
+            padding-bottom: 36%;
+          	position: relative;
+    		float: left;
+            margin-right: 1em;
+           span {
+             padding: 5px 5px;
+             font-size: 0.7em;
+           }
+            .diagram.active span {
+            	color: black;
+            }
+            
+          
+            
+         }
+          .basic_desc,
+          .meta_data {
+          	position: relative;
+            float: left;
+            width: 60%;
+          }
+          
+          .art_desc {
+          	position: relative;
+            float: left;
+            width: 60%;
+          }
+        }
+        
+      }
+      
+      h2 { 
+        margin-bottom: 0px;
+      	font-size: 1.1em;
+      }
+      
+      .product__price { 
+        font-size: 1.1em; 
+        margin-bottom: 5px;
+      }
+      
+      .expand__toggle {
+      	display: block;
+        position: absolute;
+        top: 12px;
+        right: 15px;
+        color: black;
+        font-size: 1em;
+        span {
+          position: relative;
+          float: left;
+          font-style: italic;
+          padding-right: 10px;
+        }
+        .info {
+          	position: relative;
+          	float: left;
+        	width: 20px;
+        	height: 20px;
+        	@include button;
+        	text-align: center;
+        	line-height: 27px;
+          
+          	&:hover {
+          		@include button(hover);
+          	}
+        }
+        .info.true {
+          	transform: rotate(180deg);
+         }
+      }
+      
+      .cart-option--container {
+      	display: flex;
+        flex-direction: row;
+      }
+      
+      .swatch-std {
+      	flex-shrink: 0;
+        order: 1; /* flexbox */
+        display: block;
+        margin-bottom: 0px;
+        font-size: 0.9em;
+    	text-indent: -0.5px;
+        	
+        span { display: none;}
+        	
+        .swatch-element {
+          	min-width: calc(#{$buttonSize} - 2px)!important;
+        	height: calc(#{$buttonSize} - 2px)!important;
+        	
+          	* {
+          		min-width: calc(#{$buttonSize} - 2px)!important;
+          		height: calc(#{$buttonSize} - 2px)!important;
+          		line-height: calc(#{$buttonSize} - 2px)!important;
+        	}
+      }
+      	}
+      
+      .product__form--add-to-cart {
+    		width: 100%;
+    		max-width: none;
+          
+          	.selector-wrapper, 
+          	.btn--add-to-cart {
+          		position: relative;
+              	float: left;
+              	width: 58%;	
+          	}
+          	.btn--add-to-cart {
+            	order: 2; /* flexbox */
+    	        flex-grow: 1; /* flexbox */
+                min-height: 0px;
+                height:  calc(#{$buttonSize} - 2px)!important;
+          	}
+		}
+      
+      .product__quantity.quantity-wrapper {
+      		display:none;
+      }
+      
+      .back-button.back__mobile {display: block;}
+	}
+  
+  	.grid--uniform {
+    	.medium-up--one-half:nth-child(2n+1){
+  			clear: initial;
+  		}
+    
+    	.grid__item.product__photo {
+    		padding: 0 3% 3% 3%;
+		}
+ 
+  	}
+    
+  }
+  
+  
+
+
+}
+
+@media only screen and (max-width: 750px) {
+	#bosch-drawstring-bag, 
+  	#sword-guard-drawstring-bag {
+  		#shopify-section-product-template
+		.product__form--add-to-cart{
+	  		margin-bottom: -10px;
+		}
+	}
+}
+
+
+@media only screen and (max-width: 400px) {
+  .product__details {
+    h2 {max-width: 350px;}
+  	.expand__toggle {
+    	span { display: none;}
+  	}
+    .product-single__description {
+       font-size: 0.95em!important;
+      	.art_desc {
+      		width: 100%;
+      		padding-left: 0px;
+    	}
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .product__details {
+    .art_desc {
+      width: 100%!important;
+      padding-left: 0px!important;
+    }
+ }
+}
+
+
+@media only screen and (max-height: 900px) and (min-width: 750px) {
+  #shopify-section-product-template .product.grid {
+  	.product__photo.Fullbleed {
+/*   		padding-left: 26%;
+        background: linear-gradient(to top right,rgba(0,0,0,0) 0%,rgba(0,0,0,0) calc(50% - 300px),#333 50%,rgba(0,0,0,0) calc(50% + 0.8px),rgba(0,0,0,0) 100%); */
+/*        background: lightgray; */
+  	}
+  }
+}
+
+#bosch-drawstring-bag,
+#sword-guard-drawstring-bag {
+  #AddToCart-product-template,
+  .product__quantity {
+	display: none;
+  }
+  .product-single__description {
+    .third_party_link {
+      	display: inline-block;
+    	@include button;
+      	@include chaletBook(bold);
+      	width: 100%;
+      	height: $buttonSize;
+      	line-height: $buttonSize;
+      	text-decoration: none;
+      	text-align: center;
+        margin: 0 0 20px;
+    }
+  }
+}
+
+/***************************************************/
+/****************** ABOUT PAGE *********************/
+/***************************************************/
+
+.template-page#about {
+  .page-container {
+    h1 {
+    	display: none;
+    }
+  	font-size: 3em;
+  	text-transform: lowercase;
+  	color: black;
+  	line-height: 1em;
+  	letter-spacing: 5px;
+  	font-family: "San Marco";
+    max-width: 800px;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin: 0px;
+    @media only screen and (max-width: 750px) {
+		font-size: 2em;
+      	padding-left: 1em;
+    	padding-right: 1em;
+	}
+  }
+
+}
+
+/***************************************************/
+/****************** PASSWORD PAGE ******************/
+/***************************************************/
+
+
+.template-password {
+	@include chaletBook;
+  	text-transform: uppercase;
+  .password-main,
+  .password-message {
+  		@include chaletBook;
+    	color: black;
+    }
+}
+
+
+/***************************************************/
+/****************** EDITOR HACKS *******************/
+/***************************************************/
+
+iframe#preview-bar-iframe {
+	display: none;
+}
+
+
+/***************************************************/
+/******************** PRINTING *********************/
+/***************************************************/
+
+.template-collection#offshore-custom-scarf-manufacturing {
+	.site-header__logo {display: none;}
+	.main-content {margin-top: 50px;}
+	.table__window {
+		overflow-x: auto;
+		padding: 0 3%;
+		&:not(:first-child) {
+			margin-top: 3em;
+		}
+		table.production__printing {
+			flex: 0 0 auto;
+			min-width: 900px;
+			tr * {
+				padding: 0.25em 0.5em;
+			}
+			* { 
+					@include chaletBook; 
+					color: black;		
+				}
+			thead {
+				* { @include chaletBook; }
+				th { 
+					border-bottom: 0; 
+					white-space: nowrap;
+				} 
+				td { border-top: 0; }
+				tr.table__description,
+				tr.fabric__description {
+					* { @include chaletBook; }
+					th { 
+						font-size: 0.85em;
+						border: 0px;
+						padding-bottom: 1.5em;
+						text-transform: uppercase;
+						vertical-align: bottom;
+						text-align: left;
+						&:nth-child(1){
+							width: 30%;
+						}
+						&:nth-child(2){
+							p {
+								padding: 0;
+								margin-bottom: 0;
+								&:nth-child(1) {
+									@include chaletBook(bold); 
+								}
+							}
+						}
+						.logo {
+							@include logo;
+							font-size: 1.85em!important;
+							padding: 0px;
+						}
+					}
+				}
+				tr.fabric__description {
+					padding-top: 3em;
+					th {
+						text-transform: none;
+						white-space: normal;
+					}
+					th:nth-child(1){
+						font-size: 1.5em;
+						padding: 0 0 0.6em 0;
+					}
+					span { padding: 0; }
+				}
+				tr * { @include chaletBook(bold); }
+			}
+			tr {
+				td, th {
+					text-align: center;
+				}
+			}
+			tbody {
+				tr {
+					// td:nth-child(-n + 2) {
+					// 	color: transparent;
+					// 	border-bottom: 0px;
+					// 	border-top: 0px;
+					// }
+					// td.show__item {
+					// 	color: black;
+					// 	@include chaletBook(bold);
+					// 	border-top: 1px solid #eee;
+					// }
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,126 @@
+<style>
+  .site-header__logo img {
+    max-width: {{ section.settings.logo_width | escape | default: '180' | remove: 'px' | append: 'px' }};
+  }
+  @media screen and (max-width: 749px) {
+    .site-header__logo img {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<header class="site-header" role="banner" data-section-id="{{ section.id }}" data-section-type="header-section">
+  <div class="grid grid--no-gutters grid--table site-header__inner">
+    <div class="grid__item one-third medium-up--one-sixth small--one-tenth">
+      <button type="button" class="site-header__link text-link site-header__toggle-nav js-drawer-open-left">
+        <span class="icon icon-hamburger" aria-hidden="true">
+          <div class="menu--icon"><div class="menu--line"></div></div>
+        </span>
+         {% comment %}
+            <span class="icon__fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+         {% endcomment %}
+      </button>
+    </div>
+    <div class="grid__item one-third medium-up--two-thirds small--eight-tenths">
+      {% comment %}
+        Use the uploaded logo from theme settings if enabled.
+        Site name gets precedence with H1 tag on homepage, div on other pages.
+      {% endcomment %}
+        <h1 class="site-header__logo">
+          <a href="/">software studios, llc</a>
+        </h1>
+ 
+
+    </div>
+
+    <div class="grid__item one-third medium-up--one-sixth text-right small--one-tenth">
+      {% comment %}
+      <a href="/search" class="site-header__link site-header__search js-drawer-open-top">
+        <span class="icon icon-search" aria-hidden="true"></span>
+        <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+      </a>
+      {% endcomment %}
+      <a href="/cart" class="site-header__link site-header__cart cart-link{% if settings.cart_type == 'drawer' %} js-drawer-open-right{% endif %}{% if cart.item_count > 0 %} cart-bubble--visible{% endif %}">
+        <span class="icon icon-cart" aria-hidden="true">          
+          <div class="checkout--bag"><div class="checkout--handle"></div></div>
+        </span>
+         {% comment %}
+        <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+         {% endcomment %}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+  {
+    "name": {
+      "de": "Titel",
+      "en": "Header",
+      "ja": "ヘッダー",
+      "pt-BR": "Cabeçalho",
+      "es": "Encabezado",
+      "it": "Header",
+      "fr": "En-tête"
+    },
+    "class": "header-section",
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "de": "Logo",
+          "en": "Logo",
+          "ja": "ロゴ",
+          "pt-BR": "Logotipo",
+          "es": "Logotipo",
+          "it": "Logo",
+          "fr": "Logo"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": {
+          "de": "Logo-Foto",
+          "en": "Logo image",
+          "ja": "ロゴ画像",
+          "pt-BR": "Imagem do logotipo",
+          "es": "Imagen del logotipo",
+          "it": "Immagine del logo",
+          "fr": "Image du logo"
+        },
+        "info": {
+          "de": "Maximal 450 x 200 Pixel",
+          "en": "450 x 200px max",
+          "ja": "最大450 x 200ピクセル",
+          "pt-BR": "450 x 200 px máx.",
+          "es": "450 x 200px máx.",
+          "it": "450 x 200 px max",
+          "fr": "450 x 250 px max"
+        }
+      },
+      {
+        "type": "text",
+        "id": "logo_width",
+        "label": {
+          "de": "Benutzerdefinierte Logobreite (Pixel)",
+          "en": "Custom logo width (in pixels)",
+          "ja": "ロゴの幅をカスタムする（ピクセルで）",
+          "pt-BR": "Largura do logotipo personalizado (em pixels)",
+          "es": "Ancho del logotipo personalizado (en píxeles)",
+          "it": "Larghezza logo personalizzato (in pixel)",
+          "fr": "Largeur personnalisée du logo (en pixels)"
+        },
+        "default": {
+          "de": "180",
+          "en": "180",
+          "ja": "180",
+          "pt-BR": "180",
+          "es": "180",
+          "it": "180",
+          "fr": "180"
+        }
+      }
+    ]
+  }
+{% endschema %}
